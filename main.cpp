@@ -9,7 +9,7 @@ struct Student {
     string name;
     string roll;
     string semester;
-    string technology;
+    string subject;
     string phoneNumber;
 };
 
@@ -44,15 +44,15 @@ void enter()
         cin >> newStudent.roll;
         cout << "Enter semester: ";
         cin >> newStudent.semester;
-        cout << "Enter technology: ";
-        cin >> newStudent.technology;
+        cout << "Enter subject: ";
+        cin >> newStudent.subject;
         cout << "Enter phone number: ";
         cin >> newStudent.phoneNumber;
         students[i] = newStudent;
     }
 
     totalStudents += choice;
-    cout << "\nData entered successfully." << endl;
+    cout << "Data entered successfully." << endl;
 }
 
 void show()
@@ -62,14 +62,14 @@ void show()
         return;
     }
 
-    cout << "\n-------------------------------------------------------------" << endl;
-    cout << setw(10) << "Student" << setw(15) << "Name" << setw(10) << "Roll" << setw(15) << "Semester" << setw(15) << "Technology" << setw(15) << "Phone Number" << endl;
-    cout << "-------------------------------------------------------------" << endl;
+    cout << "-----------------------------------------------------------------------------------------" << endl;
+    cout << setw(10) << "Student" << setw(10) << "Name" << setw(10) << "Roll" << setw(15) << "Semester" << setw(15) << "Technology" << setw(15) << "Phone Number" << endl;
+    cout << "-----------------------------------------------------------------------------------------" << endl;
 
     for (int i = 0; i < totalStudents; i++) {
-        cout << setw(10) << "Student " << i + 1 << setw(15) << students[i].name << setw(10) << students[i].roll << setw(15) << students[i].semester << setw(15) << students[i].technology << setw(15) << students[i].phoneNumber << endl;
+        cout << setw(10) << "Student " << i + 1 << setw(10) << students[i].name << setw(10) << students[i].roll << setw(15) << students[i].semester << setw(15) << students[i].subject << setw(15) << students[i].phoneNumber << endl;
     }
-    cout << "-------------------------------------------------------------" << endl;
+    cout << "-----------------------------------------------------------------------------------------" << endl;
 }
 
 void searchrecord()
@@ -80,7 +80,7 @@ void searchrecord()
     }
 
     string rollno;
-    cout << "\nEnter roll of student you want to search: ";
+    cout << "Enter roll of student you want to search: ";
     cin >> rollno;
 
     for (int i = 0; i < totalStudents; i++) {
@@ -89,7 +89,7 @@ void searchrecord()
             cout << "Name: " << students[i].name << endl;
             cout << "Roll: " << students[i].roll << endl;
             cout << "Semester: " << students[i].semester << endl;
-            cout << "Technology: " << students[i].technology << endl;
+            cout << "Technology: " << students[i].subject << endl;
             cout << "Phone Number: " << students[i].phoneNumber << endl;
             return;
         }
@@ -106,7 +106,7 @@ void update()
     }
 
     string rollno;
-    cout << "\nEnter roll of student you want to update: ";
+    cout << "Enter roll of student you want to update: ";
     cin >> rollno;
 
     for (int i = 0; i < totalStudents; i++) {
@@ -116,7 +116,7 @@ void update()
             cout << "Name: " << students[i].name << endl;
             cout << "Roll: " << students[i].roll << endl;
             cout << "Semester: " << students[i].semester << endl;
-            cout << "Technology: " << students[i].technology << endl;
+            cout << "Technology: " << students[i].subject << endl;
             cout << "Phone Number: " << students[i].phoneNumber << endl;
 
             cout << "\nEnter new data" << endl;
@@ -127,11 +127,11 @@ void update()
             cout << "Enter semester: ";
             cin >> students[i].semester;
             cout << "Enter technology: ";
-            cin >> students[i].technology;
+            cin >> students[i].subject;
             cout << "Enter phone number: ";
             cin >> students[i].phoneNumber;
 
-            cout << "\nData updated successfully." << endl;
+            cout << "Data updated successfully." << endl;
             return;
         }
     }
@@ -147,13 +147,13 @@ void deleterecord()
     }
 
     int choice;
-    cout << "\nPress 1 to delete full record" << endl;
+    cout << "Press 1 to delete full record" << endl;
     cout << "Press 2 to delete specific record" << endl;
     cin >> choice;
 
     if (choice == 1) {
         totalStudents = 0;
-        cout << "\nAll records have been deleted." << endl;
+        cout << "All records have been deleted." << endl;
     }
     else if (choice == 2) {
         string rollno;
@@ -166,7 +166,7 @@ void deleterecord()
                     students[j] = students[j + 1];
                 }
                 totalStudents--;
-                cout << "\nThe required record has been deleted." << endl;
+                cout << "The required record has been deleted." << endl;
                 return;
             }
         }
@@ -178,7 +178,7 @@ void deleterecord()
 void registration()
 {
     int choice;
-    cout << "\nHow many students do you want to register? ";
+    cout << "How many students do you want to register: ";
     cin >> choice;
 
     if (choice <= 0) {
@@ -198,23 +198,21 @@ void registration()
         totalRegistrations++;
     }
 
-    cout << "\nRegistration successful!" << endl;
+    cout << "Registration successful!" << endl;
 }
 
 void showRegistrationDetails()
 {
     string password;
-    cout << "\nEnter the password to view registration details: ";
+    cout << "Enter the password to view registration details: ";
     cin >> password;
 
     if (password == ADMIN_PASSWORD) {
-        cout << "\nRegistration Details" << endl;
-        cout << "\n-------------------------------------------" << endl;
+        cout << "Registration Details" << endl;
         cout << "Total Registrations: " << totalRegistrations << endl;
-        cout << "\nStudent\tUsername\tPassword" << endl;
         cout << "-------------------------------------------" << endl;
         for (int i = 0; i < totalRegistrations; i++) {
-            cout << i + 1 << "\t" << registrationInfo[i].username << "\t\t" << registrationInfo[i].password << endl;
+            cout << "Student " << i + 1 << " - Username: " << registrationInfo[i].username << ", Password: " << registrationInfo[i].password << endl;
         }
         cout << "-------------------------------------------" << endl;
     }
@@ -223,27 +221,12 @@ void showRegistrationDetails()
     }
 }
 
-void clearConsole()
-{
-    cout << "\033[2J\033[1;1H"; // ANSI escape sequence to clear console
-}
-
-void printCenter(string text)
-{
-    int width = 80;
-    int length = text.length();
-    int startPos = (width - length) / 2;
-    cout << setw(startPos + length) << text << endl;
-}
-
 int main()
 {
     int value;
 
-    clearConsole();
-
     cout << "-----------------------------------" << endl;
-    printCenter("Student Information System");
+    cout << "    Student Information System     " << endl;
     cout << "-----------------------------------" << endl;
 
     while (true) {
@@ -258,12 +241,6 @@ int main()
 
         cout << "\nEnter your choice: ";
         cin >> value;
-
-        clearConsole();
-
-        cout << "-----------------------------------" << endl;
-        printCenter("Student Information System");
-        cout << "-----------------------------------" << endl;
 
         switch (value) {
             case 1:
@@ -288,7 +265,6 @@ int main()
                 showRegistrationDetails();
                 break;
             case 8:
-                clearConsole();
                 exit(0);
                 break;
             default:
